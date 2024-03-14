@@ -66,7 +66,7 @@ namespace mp3spieler
 
         private void VkluchitPesnuUnderIndex()
         {
-            if (hist[c] != null)
+            if (c < hist.Count)
             {
                 pl.Open(new Uri(hist[c]));
                 pl.Position = currentPosition;
@@ -77,7 +77,7 @@ namespace mp3spieler
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            if (hist.Count != 0 && c != 0)
+            if (hist.Count != 0 && c != 0 && c != 0)
             {
                 c--;
                 VkluchitPesnuUnderIndex();
@@ -87,7 +87,7 @@ namespace mp3spieler
 
         private void ForwardButton_Click(object sender, RoutedEventArgs e)
         {
-            if (hist.Count != 0)
+            if (hist.Count != 0 && c != hist.Count - 1)
             {
                 c++;
                 VkluchitPesnuUnderIndex();
