@@ -23,14 +23,14 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Button x:Name="OpenMusicFolderButton" Content="Открыть папку с музыкой" Grid.Column="0" Grid.ColumnSpan="3" Click="OpenMusicFolderButton_Click"/>
-        <Button x:Name="HistoryButton" Content="История прослушивания" Grid.Column="3" Grid.ColumnSpan="3"/>
+        <Button x:Name="HistoryButton" Content="История прослушивания" Grid.Column="3" Grid.ColumnSpan="3" Click="HistoryButton_Click"/>
         <ListBox x:Name="ListPesen" Grid.Row="1" Grid.ColumnSpan="6" SelectionChanged="ListPesen_SelectionChanged"/>
         <Slider x:Name="LengthSlider" Grid.Row="2"  Grid.ColumnSpan="6" Margin="0,17,0,37" Grid.RowSpan="2"/>
         <Button x:Name="BackButton" Content="Назад" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Width="135" Click="BackButton_Click"/>
         <Button x:Name="PlayButton" Grid.Column="1" Content="Играть" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Width="135" Click="PlayButton_Click"/>
         <Button x:Name="ForwardButton" Grid.Column="2" Content="Вперед" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Width="135" Click="ForwardButton_Click"/>
-        <Button x:Name="RepeatButton" Grid.Column="3" Content="Повтор" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Width="90" Height="45"/>
-        <Button x:Name="RandomButton" Grid.Column="4" Content="Случайно" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Width="90" Height="45"/>
+        <Button x:Name="RepeatButton" Grid.Column="3" Content="Повтор" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Width="90" Height="45" Click="RepeatButton_Click"/>
+        <Button x:Name="RandomButton" Grid.Column="4" Content="Случайно" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Width="90" Height="45" Click="RandomButton_Click"/>
         <Slider x:Name="VolumeSlider" Grid.Column="5" HorizontalAlignment="Center" Margin="0,19,0,0" Grid.Row="3" VerticalAlignment="Top" Width="120"/>
 
 

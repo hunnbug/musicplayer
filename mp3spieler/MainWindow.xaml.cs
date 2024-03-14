@@ -10,16 +10,15 @@ using System.Collections.Generic;
 
 namespace mp3spieler
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
-        int c;
-        List<string> pesni                  = new List<string>();
-        List<string> hist                   = new List<string>();
-        MediaPlayer pl                      = new MediaPlayer();
-        TimeSpan currentPosition;
+        //ползунокползунокползунокползунокползунокползунокползунокползунокползунокползунокползунокползунокползунокползунокползунок
+        private int c;
+        private string pesnyaNow;
+        private TimeSpan currentPosition;
+        private List<string> pesni                  = new List<string>();
+        public  List<string> hist                   = new List<string>();
+        private MediaPlayer pl                      = new MediaPlayer();
 
         public MainWindow()
         {
@@ -61,6 +60,7 @@ namespace mp3spieler
                 pl.Play();
                 hist.Add((string)ListPesen.SelectedItem);
                 c = hist.Count - 1;
+                pesnyaNow = (string)ListPesen.SelectedItem;
             }
         }
 
@@ -71,6 +71,7 @@ namespace mp3spieler
                 pl.Open(new Uri(hist[c]));
                 pl.Position = currentPosition;
                 pl.Play();
+                pesnyaNow = hist[c];
             }
             else return;
         }
@@ -93,6 +94,39 @@ namespace mp3spieler
                 VkluchitPesnuUnderIndex();
             }
             else return;
+        }
+
+        private void RandomButton_Click(object sender, RoutedEventArgs e)
+        {
+            Random ra = new Random();
+            int rand = ra.Next(0, pesni.Count);
+            if (pesni.Count != 0)
+            {
+                pl.Open(new Uri(pesni[rand]));
+                pl.Position = currentPosition;
+                pl.Play();
+                hist.Add(pesni[rand]);
+                c = hist.Count - 1;
+                pesnyaNow = pesni[rand];
+            }
+            else return;
+        }
+
+        private void RepeatButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (pesnyaNow != null)
+            {
+                pl.Open(new Uri((string)pesnyaNow));
+                pl.Position = currentPosition;
+                pl.Play();
+            }
+            else return;
+        }
+
+        private void HistoryButton_Click(object sender, RoutedEventArgs e)
+        {
+            Window1 wind = new Window1();
+            wind.Show(); //доделай эту ебалу
         }
     }
 }

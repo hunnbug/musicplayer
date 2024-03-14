@@ -1,0 +1,18 @@
+﻿<Window x:Class="mp3spieler.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:mp3spieler"
+        mc:Ignorable="d"
+        Title="Window1" Height="486" Width="480">
+    <Grid Margin="0,0,5,2">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Column="0" Grid.Row="0"/>
+    </Grid>
+</Window>
