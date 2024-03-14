@@ -77,7 +77,7 @@ namespace mp3spieler
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            if (hist.Count != 0 && c != 0 && c != 0)
+            if (hist.Count != 0 && c != 0)
             {
                 c--;
                 VkluchitPesnuUnderIndex();
