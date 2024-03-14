@@ -60,25 +60,39 @@ namespace mp3spieler
                 pl.Position = currentPosition;
                 pl.Play();
                 hist.Add((string)ListPesen.SelectedItem);
+                c = hist.Count - 1;
             }
+        }
+
+        private void VkluchitPesnuUnderIndex()
+        {
+            if (hist[c] != null)
+            {
+                pl.Open(new Uri(hist[c]));
+                pl.Position = currentPosition;
+                pl.Play();
+            }
+            else return;
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            if (hist[c] != null)
+            if (hist.Count != 0 && c != 0)
             {
-                pl.Open(new Uri(hist[c])); pl.Position = currentPosition;
-                pl.Play();
+                c--;
+                VkluchitPesnuUnderIndex();
             }
+            else return;
         }
 
         private void ForwardButton_Click(object sender, RoutedEventArgs e)
         {
-            /*if (hist[hist.Count - c + 1] != null)
+            if (hist.Count != 0)
             {
-                pl.Open(new Uri(hist[hist.Count - c + 1])); pl.Position = currentPosition;
-                pl.Play();
-            }*/
+                c++;
+                VkluchitPesnuUnderIndex();
+            }
+            else return;
         }
     }
 }
