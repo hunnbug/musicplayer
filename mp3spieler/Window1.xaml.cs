@@ -16,9 +16,21 @@ namespace mp3spieler
 {
     public partial class Window1 : Window
     {
+        public string selectedPesnya;
         public Window1()
         {
             InitializeComponent();
+        }
+
+        private void ReturnButton_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = false;
+        }
+
+        private void HistoryList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            selectedPesnya = HistoryList.SelectedItem as string;
+            DialogResult = true;
         }
     }
 }

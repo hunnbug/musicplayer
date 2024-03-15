@@ -15,10 +15,11 @@ namespace mp3spieler
         //ползунокползунокползунокползунокползунокползунокползунокползунокползунокползунокползунокползунокползунокползунокползунок
         private int c;
         private string pesnyaNow;
-        private TimeSpan currentPosition;
-        private List<string> pesni                  = new List<string>();
-        public  List<string> hist                   = new List<string>();
-        private MediaPlayer pl                      = new MediaPlayer();
+        private TimeSpan currentPosition    = TimeSpan.Zero;
+        private bool Repeating              = false;
+        private List<string> pesni          = new List<string>();
+        public  List<string> hist           = new List<string>();
+        private MediaPlayer pl              = new MediaPlayer();
 
         public MainWindow()
         {
@@ -55,30 +56,34 @@ namespace mp3spieler
         {
             if (ListPesen.SelectedItem != null)
             {
-                pl.Open(new Uri((string)ListPesen.SelectedItem));
-                pl.Position = currentPosition;
+                pl.Open(new Uri((string)ListPesen.SelectedItem)); pl.Position = currentPosition;
                 pl.Play();
                 hist.Add((string)ListPesen.SelectedItem);
-                c = hist.Count - 1;
-                pesnyaNow = (string)ListPesen.SelectedItem;
+
+                for(int i = 0;i < pesni.Count; i++)
+                {
+                    if (pesni[i] == (string)ListPesen.SelectedItem) c = i;
+                }
+                pesnyaNow                   = (string)ListPesen.SelectedItem;
             }
         }
 
         private void VkluchitPesnuUnderIndex()
         {
-            if (c < hist.Count)
+            if (c < pesni.Count)
             {
-                pl.Open(new Uri(hist[c]));
-                pl.Position = currentPosition;
+                pl.Open(new Uri(pesni[c]));
+                pl.Position                 = currentPosition;
+                pesnyaNow                   = pesni[c];
                 pl.Play();
-                pesnyaNow = hist[c];
+                hist.Add(pesni[c]);
             }
             else return;
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            if (hist.Count != 0 && c != 0)
+            if (pesni.Count != 0 && c != 0)
             {
                 c--;
                 VkluchitPesnuUnderIndex();
@@ -88,7 +93,7 @@ namespace mp3spieler
 
         private void ForwardButton_Click(object sender, RoutedEventArgs e)
         {
-            if (hist.Count != 0 && c != hist.Count - 1)
+            if (pesni.Count != 0 && c < pesni.Count)
             {
                 c++;
                 VkluchitPesnuUnderIndex();
@@ -98,35 +103,56 @@ namespace mp3spieler
 
         private void RandomButton_Click(object sender, RoutedEventArgs e)
         {
-            Random ra = new Random();
-            int rand = ra.Next(0, pesni.Count);
+            Random ra                       = new Random();
+            int rand                        = ra.Next(0, pesni.Count);
             if (pesni.Count != 0)
             {
-                pl.Open(new Uri(pesni[rand]));
-                pl.Position = currentPosition;
+                pl.Open(new Uri(pesni[rand])); pl.Position = currentPosition;
                 pl.Play();
+
                 hist.Add(pesni[rand]);
-                c = hist.Count - 1;
-                pesnyaNow = pesni[rand];
+                c                           = pesni.Count - 1;
+                pesnyaNow                   = pesni[rand];
             }
             else return;
         }
 
         private void RepeatButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (pesnyaNow != null)
-            {
-                pl.Open(new Uri((string)pesnyaNow));
-                pl.Position = currentPosition;
-                pl.Play();
-            }
+        { 
+            if(Repeating == false) Repeating = true;
+            if(Repeating == true)  Repeating = false;
             else return;
         }
 
         private void HistoryButton_Click(object sender, RoutedEventArgs e)
         {
-            Window1 wind = new Window1();
-            wind.Show(); //доделай эту ебалу
+            var wind                        = new Window1();
+            wind.HistoryList.ItemsSource    = hist;
+            wind.ShowDialog();
+            if (wind.DialogResult == false) wind.Close();
+            if(wind.DialogResult == true)
+            {
+                for (int i = 0; i < pesni.Count; i++)
+                {
+                    if (pesni[i] == wind.selectedPesnya) c = i;
+                }
+                VkluchitPesnuUnderIndex();
+            }
+        }
+
+        private void LengthSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            pl.Position                     = new TimeSpan(Convert.ToInt64(LengthSlider.Value));
+        }
+
+        private void mediaOpened(object sender, RoutedEventArgs e)
+        {
+            LengthSlider.Maximum            = pl.NaturalDuration.TimeSpan.Ticks;
+        }
+
+        private void MediaEnded(object sender, RoutedEventArgs e)
+        {
+            if (Repeating == true) VkluchitPesnuUnderIndex();
         }
     }
 }

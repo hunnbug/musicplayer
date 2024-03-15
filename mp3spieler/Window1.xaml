@@ -5,14 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:mp3spieler"
         mc:Ignorable="d"
-        Title="Window1" Height="486" Width="480">
+        Title="Window1" Height="480" Width="480">
     <Grid Margin="0,0,5,2">
         <Grid.RowDefinitions>
+            <RowDefinition Height ="8*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Column="0" Grid.Row="0"/>
+        <ListBox x:Name="HistoryList" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Column="0" Grid.Row="0" Margin="0,0,-3,0" SelectionChanged="HistoryList_SelectionChanged"/>
+        <Button x:Name="ReturnButton" Content="Назад" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="480" Height="60" Margin="0,0,0,-4" Grid.RowSpan="2" Click="ReturnButton_Click"/>
     </Grid>
 </Window>
